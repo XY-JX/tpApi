@@ -10,7 +10,6 @@ class Api
      * @param int $code 业务状态码
      * @param array $data 返回数据{}/[]
      * @param string $msg 返回描述
-     * @param array $error 返回错误信息
      */
     private static function return(int $code=200,array $data=[],string $msg='success'){
         $result = [
