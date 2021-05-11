@@ -92,6 +92,8 @@ abstract class BaseController
 
         $v->failException(false)->check($data);
 
+        if($v->getError())
+
         \Api::error($v->getError(),401);
     }
 
@@ -100,27 +102,24 @@ abstract class BaseController
      * @param array $params [['参数'，’默认值‘]]
      * @param array $validate ['api|API'=>'require|email'] 参考tp6手册验证器
      * @param array $message ['name.require' => '名称必须','name.max' => '名称最多不能超过25个字符','email' => '邮箱格式错误'];
-     * @param bool $suffix
      * @return array
      */
-    protected function getData(array $params, array $validate = [], array $message = [], bool $suffix = false)
+    protected function getData(array $params, array $validate = [], array $message = [])
     {
         $p = [];
-        $i = 0;
-        foreach ($params as $param) {
-            if (!is_array($param)) {
-                $p[$suffix == true ? $i++ : $param] = $this->request->param($param);
-            } else {
+        foreach ($params as $key => $param) {
+            if (is_array($param)) {
                 if (!isset($param[1])) $param[1] = null;
                 if (!isset($param[2])) $param[2] = '';
-                if (is_array($param[0])) {
-                    $name = is_array($param[1]) ? $param[0][0] . '/a' : $param[0][0] . '/' . $param[0][1];
-                    $keyName = $param[0][0];
-                } else {
-                    $name = is_array($param[1]) ? $param[0] . '/a' : $param[0];
-                    $keyName = $param[0];
+                $name = $param[0] ;
+                if (strpos($param[0] , '/')) {
+                    [$name, $type] = explode('/', $param[0]);
                 }
-                $p[$suffix == true ? $i++ : (isset($param[3]) ? $param[3] : $keyName)] = $this->request->param($name, $param[1], $param[2]);
+                $p[$name] = $this->request->param($param[0], $param[1], $param[2]);
+            } else if(is_int($key)){
+                $p[$param] = $this->request->param($param);
+            } else {
+                $p[$key] = $this->request->param($key,$param);
             }
         }
         if ($validate) {
