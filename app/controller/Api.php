@@ -32,8 +32,8 @@ class Api extends BaseController
 
     public function cs()
     {
-        $orderData=['goods'=>1,'uid'=>4023,'num'=>2];
+        $orderData=['goods'=>'乔尔乔','uid'=>4023,'num'=>2];
 
-        \Api::success($ecdada);
+        \Api::success($orderData);
     }
 }
