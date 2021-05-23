@@ -29,7 +29,6 @@ class Api
      */
     public static function success($data = [], $code = 200, $msg = 'success')
     {
-
         return self::return($code, is_array($data) ? $data : [$data], $msg);
     }
 
