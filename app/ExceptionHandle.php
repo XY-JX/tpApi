@@ -63,7 +63,7 @@ class ExceptionHandle extends Handle
                     'line' => $e->getLine(),
                     'trace' => $e->getTrace()
                 ];
-            \Api::error($msg = 'Internal Server Error', $code = 500, $error);
+            \Api::error('Internal Server Error',500, $error);
         }
         // 其他错误交给系统处理
         return parent::render($request, $e);
