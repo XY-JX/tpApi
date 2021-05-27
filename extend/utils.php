@@ -20,6 +20,13 @@ class utils
         return ['url' => '/home/' . $randomCodeId, 'code' => $code];
     }
 
+    /**
+     * 生成一个id
+     * @return string
+     */
+    public static function orderNo(){
+       return date('Ymd').str_pad(time() - strtotime(date('Y-m-d 00:00:00')),5,"0",STR_PAD_LEFT).mt_rand(10,99).mt_rand(10,99);
+    }
 
     /**
      * 根据经纬度返回距离
