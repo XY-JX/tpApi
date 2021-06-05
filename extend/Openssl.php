@@ -1,6 +1,6 @@
 <?php
 
-class openssl
+class Openssl
 {
     protected static $private_key = '-----BEGIN RSA PRIVATE KEY-----
 MIICXQIBAAKBgQC3//sR2tXw0wrC2DySx8vNGlqt3Y7ldU9+LBLI6e1KS5lfc5jl
@@ -107,7 +107,7 @@ tCu7Hh2/kGFNQmB+oj09auMCAwEAAQ==
     }
 
     /**
-     * 公钥加密
+     * 私钥加密
      * @param array $data
      * @param int $level
      * @return string
@@ -123,7 +123,7 @@ tCu7Hh2/kGFNQmB+oj09auMCAwEAAQ==
     }
 
     /**
-     * 私钥解密
+     * 公钥解密
      * @param string $encrypted
      * @param int $level
      * @return mixed

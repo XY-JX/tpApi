@@ -29,4 +29,6 @@ return [
     'error_message'    => '页面错误！请稍后再试～',
     // 显示错误信息
     'show_error_msg'   => true,
+    //是否加密数据
+    'is_it_encrypted'  => false,
 ];

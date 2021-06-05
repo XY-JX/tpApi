@@ -106,6 +106,9 @@ abstract class BaseController
      */
     protected function getData(array $params, array $validate = [], array $message = [])
     {
+        if(config('app.is_it_encrypted') && $this->request->param('data')){
+            $this->request->setRoute(\Openssl::decrypt($this->request->param('data')));//公钥解密并赋值给request
+        }
         $p = [];
         foreach ($params as $key => $param) {
             if (is_array($param)) {

@@ -16,10 +16,11 @@ class Index extends BaseController
     }
     public function cs()
     {
-        $this->getData([
+      $cs =   $this->getData([
             ['name',9],
             ['age',1],
             ['email','qq@qq.com'],
+            ['data','aaaaaaaaaaaaa']
         ], [
             'name'  => 'require|max:25',
             'age'   => 'number|between:1,120',
@@ -31,6 +32,8 @@ class Index extends BaseController
             'age.between'  => '年龄必须在1~120之间',
             'email'        => '邮箱格式错误',
         ]);
+        \Api::success($cs);
+        print_r($cs);
         return 'hello, world !';
     }
     public function cs2()
