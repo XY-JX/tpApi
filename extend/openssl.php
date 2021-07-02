@@ -96,6 +96,7 @@ tCu7Hh2/kGFNQmB+oj09auMCAwEAAQ==
 //    1024   117   128
 //    2048   245   256
 //    4096   501   512
+
     protected static function level($level = 1024)
     {
         $array = [
