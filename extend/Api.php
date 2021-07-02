@@ -12,13 +12,17 @@ class Api
      * @param mixed $data 返回数据{}/[]
      * @param string $msg 返回描述
      */
-    private static function return(int $code = 200,  $data = [], string $msg = 'success')
+    private static function return(int $code = 200, $data = [], string $msg = 'success')
     {
-        throw new \think\exception\HttpResponseException(json([
+        $json = [
             'code' => $code,
             'data' => $data,
             'msg' => $msg,
-        ]));
+        ];
+        if (config('app.is_it_encrypted')) {
+            $json = Openssl::encrypt($json);//私钥加密
+        }
+        throw new \think\exception\HttpResponseException(json($json));
     }
 
     /**
@@ -27,9 +31,9 @@ class Api
      * @param int $code
      * @param string $msg
      */
-    public static function success($data = [],int $code = 200,string $msg = 'success')
+    public static function success($data = [], int $code = 200, string $msg = 'success')
     {
-        return self::return($code,  $data , $msg);
+        return self::return($code, $data, $msg);
     }
 
     /**
