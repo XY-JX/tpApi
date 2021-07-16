@@ -37,12 +37,12 @@ class Api
     }
 
     /**
-     * 失败 FAIL
+     * 失败 fail
      * @param string $msg
      * @param int $code
      * @param mixed $data
      */
-    public static function error(string $msg = 'FAIL', int $code = 400, $data = [])
+    public static function error(string $msg = 'fail', int $code = 400, $data = [])
     {
         return self::return($code, $data, $msg);
     }
