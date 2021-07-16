@@ -13,7 +13,7 @@ class Api extends BaseController
             ['uid', mt_rand(1, 100)],
             ['num', mt_rand(1, 5)]
         ]);
-        $redis = \utils::redis();
+        $redis = \Utils::redis();
         $redis->lPush('order:createList', json_encode([
             'goods' => $orderInfo['goods'],
             'uid' => $orderInfo['uid'],

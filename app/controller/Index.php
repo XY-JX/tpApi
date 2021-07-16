@@ -44,7 +44,7 @@ class Index extends BaseController
         return 'hello, world !';
     }
     public function cs1(){
-        $cache = \utils::redis();
+        $cache = \Utils::redis();
         for ($i=1;$i<10 ; $i++){
             $orderInfo =['goods'=> mt_rand(1, 10000), 'uid'=>mt_rand(1, 20) ,'num'=>mt_rand(1, 5)];
             $cache->lPush('order:create:list', json_encode([
