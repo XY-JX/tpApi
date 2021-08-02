@@ -11,18 +11,18 @@ class Encryption
      * 解密
      * @param string $data
      * @param string $iv
-     * @return array|bool
+     * @return array
      */
     public static function decrypt(string $data, string $iv = '')
     {
-        return openssl_decrypt($data, self::$method, self::$key, self::$options, $iv ?: self::$iv);
+        return json_decode(openssl_decrypt($data, self::$method, self::$key, self::$options, $iv ?: self::$iv),true);
     }
 
     /***
      * 加密
      * @param array $data
      * @param string $iv
-     * @return string|bool
+     * @return string|false
      */
     public static function encrypt(array $data, string $iv = '')
     {
