@@ -20,7 +20,7 @@ class Api
             'msg' => $msg,
         ];
         if (config('app.is_it_encrypted')) {
-            $json = Openssl::encrypt($json);//私钥加密
+            $json = \xy_jx\Utils\Openssl::encrypt($json);//私钥加密
         }
         throw new \think\exception\HttpResponseException(json($json));
     }
