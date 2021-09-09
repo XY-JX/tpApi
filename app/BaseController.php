@@ -1,5 +1,5 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace app;
 
@@ -39,11 +39,11 @@ abstract class BaseController
     /**
      * 构造方法
      * @access public
-     * @param  App  $app  应用对象
+     * @param App $app 应用对象
      */
     public function __construct(App $app)
     {
-        $this->app     = $app;
+        $this->app = $app;
         $this->request = $this->app->request;
 
         // 控制器初始化
@@ -52,15 +52,16 @@ abstract class BaseController
 
     // 初始化
     protected function initialize()
-    {}
+    {
+    }
 
     /**
      * 验证数据
      * @access protected
-     * @param  array        $data     数据
-     * @param  string|array $validate 验证器名或者验证规则数组
-     * @param  array        $message  提示信息
-     * @param  bool         $batch    是否批量验证
+     * @param array $data 数据
+     * @param string|array $validate 验证器名或者验证规则数组
+     * @param array $message 提示信息
+     * @param bool $batch 是否批量验证
      * @return array|string|true
      * @throws ValidateException
      */
@@ -75,7 +76,7 @@ abstract class BaseController
                 [$validate, $scene] = explode('.', $validate);
             }
             $class = false !== strpos($validate, '\\') ? $validate : $this->app->parseClass('validate', $validate);
-            $v     = new $class();
+            $v = new $class();
             if (!empty($scene)) {
                 $v->scene($scene);
             }
@@ -88,13 +89,13 @@ abstract class BaseController
             $v->batch(true);
         }
 
-      //  return $v->failException(true)->check($data);
+        //  return $v->failException(true)->check($data);
 
         $v->failException(false)->check($data);
 
-        if($v->getError())
+        if ($v->getError())
 
-        \Api::error($v->getError(),402);
+            \Api::error($v->getError(), 402);
     }
 
     /**
@@ -106,23 +107,24 @@ abstract class BaseController
      */
     protected function getData(array $params, array $validate = [], array $message = [])
     {
-        if(config('app.is_it_encrypted') && $this->request->param('data')){
-            $this->request->setRoute( \xy_jx\Utils\Openssl::decrypt($this->request->param('data')));//公钥解密并赋值给request
+        if (config('app.is_it_encrypted') && $this->request->param('data')) {
+            $Openssl = new \xy_jx\Utils\Openssl('证书地址', '证书地址');
+            $this->request->setRoute($Openssl::decrypt($this->request->param('data')));//公钥解密并赋值给request
         }
         $p = [];
         foreach ($params as $key => $param) {
             if (is_array($param)) {
                 if (!isset($param[1])) $param[1] = null;
                 if (!isset($param[2])) $param[2] = '';
-                $name = $param[0] ;
-                if (strpos($param[0] , '/')) {
+                $name = $param[0];
+                if (strpos($param[0], '/')) {
                     [$name, $type] = explode('/', $param[0]);
                 }
                 $p[$name] = $this->request->param($param[0], $param[1], $param[2]);
-            } else if(is_int($key)){
+            } else if (is_int($key)) {
                 $p[$param] = $this->request->param($param);
             } else {
-                $p[$key] = $this->request->param($key,$param);
+                $p[$key] = $this->request->param($key, $param);
             }
         }
         if ($validate) {
