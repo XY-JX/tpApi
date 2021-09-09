@@ -54,4 +54,27 @@ class Index extends BaseController
             ]));
         }
     }
+    public function cs3()
+    {
+        $orderInfo = $this::getData([
+            ['goods', mt_rand(1, 3)],
+            ['uid', mt_rand(1, 100)],
+            ['num', mt_rand(1, 5)]
+        ]);
+        $redis = \Utils::redis();
+        $redis->lPush('order:createList', json_encode([
+            'goods' => $orderInfo['goods'],
+            'uid' => $orderInfo['uid'],
+            'num' => $orderInfo['num']
+        ]));
+        for ($i = 0; $i < 500; $i++) {
+            if ($result = $redis->get('order_list_' . $orderInfo['uid'] . '_' . $orderInfo['goods'])) {
+                $data = json_decode($result, true);
+                \Api::success($data['data'], $data['code'], $data['msg']);
+            }
+            //  usleep(10000);
+            usleep(7000);
+        }
+        \Api::success(['goods' => $orderInfo['goods']], 201, '正在排队中。。。');
+    }
 }
