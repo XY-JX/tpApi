@@ -2,7 +2,7 @@
 
 /**
  * code 可根据业务自行设置
- * 200成功，400失败，402数据验证错误，500 致命错误  （已内置状态码）
+ * 200成功,400失败,402数据验证错误,404资源不存在,500致命错误  （已内置状态码）
  * Class Api
  */
 class Api
@@ -20,7 +20,7 @@ class Api
             'msg' => $msg,
         ];
         if (config('app.is_it_encrypted')) {
-            $Openssl = new \xy_jx\Utils\Openssl('证书地址', '证书地址');
+            $Openssl = new \xy_jx\Utils\Openssl();
             $json = $Openssl::encrypt($json);//私钥加密
         }
         throw new \think\exception\HttpResponseException(json($json));

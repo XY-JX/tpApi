@@ -108,7 +108,7 @@ abstract class BaseController
     protected function getData(array $params, array $validate = [], array $message = [])
     {
         if (config('app.is_it_encrypted') && $this->request->param('data')) {
-            $Openssl = new \xy_jx\Utils\Openssl('证书地址', '证书地址');
+            $Openssl = new \xy_jx\Utils\Openssl();
             $this->request->setRoute($Openssl::decrypt($this->request->param('data')));//公钥解密并赋值给request
         }
         $p = [];
@@ -131,6 +131,16 @@ abstract class BaseController
             $this->validate($p, $validate, $message);
         }
         return $p;
+    }
+
+    /**
+     * 方法不存在
+     * @param $method
+     * @param $args
+     */
+    public function __call($method, $args)
+    {
+        \Api::error('资源不存在', 404);
     }
 
 }
