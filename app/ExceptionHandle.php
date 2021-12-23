@@ -1,4 +1,5 @@
 <?php
+
 namespace app;
 
 use think\db\exception\DataNotFoundException;
@@ -31,7 +32,7 @@ class ExceptionHandle extends Handle
      * 记录异常信息（包括日志或者其它方式记录）
      *
      * @access public
-     * @param  Throwable $exception
+     * @param Throwable $exception
      * @return void
      */
     public function report(Throwable $exception): void
@@ -44,7 +45,7 @@ class ExceptionHandle extends Handle
      * Render an exception into an HTTP response.
      *
      * @access public
-     * @param \think\Request   $request
+     * @param \think\Request $request
      * @param Throwable $e
      * @return Response
      */
@@ -54,16 +55,23 @@ class ExceptionHandle extends Handle
         if ($e instanceof HttpResponseException) {
             return $e->getResponse();
         } else {
-            $error = [];
-            if (config('app.show_error_msg'))
-                $error = [
-                    'code' => $e->getCode(),
-                    'msg' => $e->getMessage(),
-                    'file' => $e->getFile(),
-                    'line' => $e->getLine(),
-                    'trace' => $e->getTrace()
-                ];
-            \Api::error('Internal Server Error',500, $error);
+            $error = [
+                'code' => $e->getCode(),
+                'msg' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'method' => $request->method(),
+                'pathinfo' => $request->pathinfo(),
+                'controller' => $request->controller(),
+                'action' => $request->action(),
+            ];
+            if (env('app_debug')) { //调试模式
+                $error['trace'] = $e->getTrace();
+                \Api::error('Internal Server Error', 500, $error);
+            } else {  //非调试模式
+                trace($error, 'api_error');  //写入日志
+                \Api::error('网络错误', 500);
+            }
         }
         // 其他错误交给系统处理
         return parent::render($request, $e);
