@@ -38,7 +38,7 @@ class ExceptionHandle extends Handle
     public function report(Throwable $exception): void
     {
         // 使用内置的方式记录异常日志
-        parent::report($exception);
+        //parent::report($exception);
     }
 
     /**
@@ -65,11 +65,11 @@ class ExceptionHandle extends Handle
                 'controller' => $request->controller(),
                 'action' => $request->action(),
             ];
+            trace(json_encode($error), 'api_error');  //写入日志
             if (env('app_debug')) { //调试模式
                 $error['trace'] = $e->getTrace();
                 \Api::error('Internal Server Error', 500, $error);
             } else {  //非调试模式
-                trace($error, 'api_error');  //写入日志
                 \Api::error('网络错误', 500);
             }
         }

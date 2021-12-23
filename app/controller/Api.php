@@ -10,13 +10,13 @@ class Api extends BaseController
 
     public function index()
     {
-        var_dump(Utils\Sundry::orderNo());
+        \Api::success(Utils\Sundry::orderNo1());
     }
 
     public function cs()
     {
 
-        var_dump(Utils\Rmb::rmb_capital(15554.4));
+        \Api::success(Utils\Rmb::rmb_capital(15554.4));
 
     }
 
