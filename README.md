@@ -28,12 +28,6 @@ ThinkPHPV6.0版本由[亿速云](https://www.yisu.com/)独家赞助发布。
 composer update
 ~~~
 
-#### 扩展类
-
-~~~
-composer require xy_jx/utils
-~~~
-
 ## 文档
 
 [完全开发手册](https://www.kancloud.cn/manual/thinkphp6_0/content)
@@ -63,3 +57,11 @@ Api 统一返回  (已接管系统错误)
 弱化 common|继承 的概念  （多使用 extend）
 
 $this->getData() 更友好的获取请求数据并验证
+
+###特殊说明
+
+调试模式才会返回错误信息（非调试模式，错误信息只能在日志中查看）
+
+如需要在非调试模式 监听SQL 需要修改配置文件 database =》 trigger_sql 值为 true
+
+

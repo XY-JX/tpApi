@@ -10,7 +10,7 @@ class Api extends BaseController
 
     public function index()
     {
-        \Api::success(Utils\Sundry::orderNo1());
+        \Api::success(Utils\Sundry::orderNo());
     }
 
     public function cs()
