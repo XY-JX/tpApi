@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * Class Excel 正常导出
+ * export 导出需要安装额外扩展  composer require phpoffice/phpspreadsheet
  */
 class Excel
 {
