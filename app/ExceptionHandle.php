@@ -60,14 +60,19 @@ class ExceptionHandle extends Handle
                 'msg' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
-                'method' => $request->method(),
-                'pathinfo' => $request->pathinfo(),
-                'controller' => $request->controller(),
-                'action' => $request->action(),
+                'request' => [  //请求
+                    'method' => $request->method(),
+                    'pathinfo' => $request->pathinfo(),
+                    'controller' => $request->controller(),
+                    'action' => $request->action(),
+                ],
+                'param' => $request->all()  //请求参数
             ];
-            trace(json_encode($error), 'api_error');  //写入日志
+            $error_id = uniqid();
+            trace('[' . $error_id . ']' . json_encode($error), 'api_error');  //写入日志
             if (env('app_debug')) { //调试模式
-                $error['trace'] = $e->getTrace();
+                // $error['trace'] = $e->getTrace();
+                $error['error_id'] = $error_id;
                 \Api::error('Internal Server Error', 500, $error);
             } else {  //非调试模式
                 \Api::error('网络错误', 500);
