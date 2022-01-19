@@ -1,7 +1,7 @@
 ThinkPHP 6.0
 ===============
 
-> 运行环境要求PHP7.3+，兼容PHP8.0。 推荐8.0
+> 运行环境要求PHP7.3+，兼容PHP8.1。 推荐8.0
 
 [官方应用服务市场](https://market.topthink.com) | [`ThinkAPI`——官方统一API服务](https://docs.topthink.com/think-api)
 
@@ -62,6 +62,6 @@ $this->getData() 更友好的获取请求数据并验证
 
 调试模式才会返回错误信息（非调试模式，错误信息只能在日志中查看）
 
-如需要在非调试模式 监听SQL 需要修改配置文件 database =》 trigger_sql 值为 true
+如需要在非调试模式 监听SQL 需要修改配置文件 config.database =》 trigger_sql 值为 true
 
 
