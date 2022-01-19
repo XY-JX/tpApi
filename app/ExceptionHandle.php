@@ -65,17 +65,18 @@ class ExceptionHandle extends Handle
                     'pathinfo' => $request->pathinfo(),
                     'controller' => $request->controller(),
                     'action' => $request->action(),
-                ],
-                'param' => $request->all()  //请求参数
+                    'header' => $request->header(config('trace.monitor_header', 'Authorization'), ''),
+                    'param' => $request->all()
+                ]
             ];
-            $error_id = uniqid();
-            trace('[' . $error_id . ']' . json_encode($error), 'api_error');  //写入日志
+            $request_id = uniqid();
+            trace('[' . $request_id . ']' . json_encode($error), 'api_error');  //写入日志
             if (env('app_debug')) { //调试模式
-                // $error['trace'] = $e->getTrace();
-                $error['error_id'] = $error_id;
+                $error['request_id'] = $request_id;
+                $error['trace'] = $e->getTrace();
                 \Api::error('Internal Server Error', 500, $error);
             } else {  //非调试模式
-                \Api::error('网络错误', 500);
+                \Api::error('网络错误', 500, ['request_id' => $request_id]);
             }
         }
         // 其他错误交给系统处理

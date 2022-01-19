@@ -7,4 +7,6 @@ return [
     'type'    => 'Html',
     // 读取的日志通道名
     'channel' => '',
+    // 需要监听的header
+    'monitor_header' => 'Authorization',
 ];
