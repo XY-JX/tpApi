@@ -70,7 +70,7 @@ class ExceptionHandle extends Handle
                 ]
             ];
             $request_id = uniqid();
-            trace('[' . $request_id . ']' . json_encode($error), 'api_error');  //写入日志
+            trace('[' . $request_id . ']' . json_encode($error), 'api');  //写入日志
             if (env('app_debug')) { //调试模式
                 $error['request_id'] = $request_id;
                 $error['trace'] = $e->getTrace();
