@@ -1,25 +1,47 @@
 <?php
-//示例
+
+/**
+ * 示例
+ * 请求方式可以只用get和post两种方式
+ */
+
 use think\facade\Route;
-Route::group('v1',function () {// api 版本
+
+Route::group('v1', function () {// api 版本
     Route::group(function () {  //需要登录
-        Route::rule('api',  function (){
+        Route::post('api', function () {
             \Api::success();
         });
+        Route::group('user', function () {
+            //用户列表
+            Route::get('list', 'user.User/list');//分页命名必须是 list 或  *_list
+            //用户信息详情
+            Route::get('info', 'user.User/info');//详情命名必须是 info 或 show 或 details
+            //用户新增
+            Route::post('add', 'user.User/add');//新增命名 add 或 save 或 insert
+            //用户信息修改
+            Route::put('edit', 'user.User/edit');//修改命名必须是 edit 或 update
+            //用户信息删除
+            Route::delete('del', 'user.User/del');//删除修改命名必须是 del
+            //用户组
+            Route::get('all', 'user.User/all');//不分页命名必须是 all 或 arr 或 array
+
+
+        });
+
 
     })->middleware(\app\middleware\Auth::class);
 
 
-
-  Route::group(function () {  //不需要登录
-      Route::rule('login', 'login/login');
-      Route::rule('cs', function (){
-          \Api::error('路由');
-      });
-  });
-  Route::miss(function (){ //路由不存在
-      \Api::error('api',405 );
-  });
+    Route::group(function () {  //不需要登录
+        Route::post('login', 'login/login');//登录必须使用post 方式请求
+        Route::post('cs', function () {
+            \Api::error('路由');
+        });
+    });
+    Route::miss(function () { //路由不存在
+        \Api::error('api', 405);
+    });
 });
 
 //Route::miss(function (){ //强制路由不存在
