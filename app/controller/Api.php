@@ -10,16 +10,15 @@ class Api extends BaseController
 
     public function index()
     {
-        \Api::success(Utils\Sundry::orderNo());
+
+        \Api::success(orderNo());
     }
 
     public function cs()
     {
-
-        \Api::success(Utils\Rmb::rmb_capital(15554.4));
+        \Api::success(Utils\Rmb::rmbCapital(15554.4));
 
     }
-
     //export 导出需要安装额外扩展  composer require phpoffice/phpspreadsheet
     public static function export($list)
     {
