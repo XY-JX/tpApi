@@ -31,9 +31,16 @@ class Api extends BaseController
     }
 
     //export 导出需要安装额外扩展  composer require phpoffice/phpspreadsheet
-    public static function export($list)
+    public function export()
     {
-        \Excel::header('推广费用', ['plat_name' => '渠道', 'area_name' => '城市', 'account' => '账号', 'date' => '日期'], '共导出数据:' . count($list) . '条')
+        //导出数据 二维数组
+        $list = [
+            ['name' => 'name_A', 'area_name' => '北京', 'account' => 'beijing', 'date' => '2020-01-01'],
+            ['name' => 'name_B', 'area_name' => '深圳', 'account' => 'shenzhen', 'date' => '2020-01-02'],
+            ['name' => 'name_C', 'area_name' => '上海', 'account' => 'shanghai', 'date' => '2020-01-03']
+        ];
+
+        \Excel::header('账号导出', ['name' => '名字', 'account' => '账号', 'area_name' => '城市', 'date' => '日期'], '共导出数据:' . count($list) . '条')
             ->content($list)
             ->save();
     }
