@@ -54,7 +54,7 @@ class Excel
     /**
      * 头部
      * @param string $title 标题
-     * @param array $header 栏目 ['id'=>'编号'，’name‘=>'名字'，’time‘=>'时间']
+     * @param array $header 栏目 ['id' => '编号', 'name' => '名字', 'time' => '时间']
      * @param string $subtitle 副标题
      * @return Excel|string
      */
@@ -133,4 +133,34 @@ class Excel
         $write->save('php://output');
     }
 
+    /**
+     * 获取Excel文本数据
+     * @param array $filePath 文件信息
+     * @param array $cols 设置字段 从A开始 ['id','name','content']
+     * @param int $start 开始行数
+     * @param int $sheetIndex sheet索引页
+     * @return array
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     */
+    public static function getFileData(array $filePath, array $cols = [], int $start = 2, int $sheetIndex = 0)
+    {
+        $objReader = IOFactory::createReader(parse_name($filePath['extension'], 1));//设置类型的读取器
+        $objReader->setReadDataOnly(true);
+        $spreadsheet = $objReader->load($filePath['full_url']); //载入excel表格
+//        $sheetCount =  $spreadsheet->getSheetCount(); //获取sheet索引 总数
+        $worksheet = $spreadsheet->getSheet($sheetIndex);
+        $highestRow = $worksheet->getHighestRow(); // 总行数
+        $lines = $highestRow - $start;
+        if ($lines <= 0) {
+            \Api::error('Excel文件中无有效数据');
+        }
+        $data = [];
+        for ($row = $start; $row <= $highestRow; $row++) {
+            foreach ($cols as $key => $val) {
+                $data[$row][$val] = $worksheet->getCellByColumnAndRow($key + 1, $row)->getValue();
+            }
+        }
+        return array_values($data);
+    }
 }
