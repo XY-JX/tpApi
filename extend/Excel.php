@@ -151,7 +151,7 @@ class Excel
 //        $sheetCount =  $spreadsheet->getSheetCount(); //获取sheet索引 总数
         $worksheet = $spreadsheet->getSheet($sheetIndex);
         $highestRow = $worksheet->getHighestRow(); // 总行数
-        if ($highestRow - $start <= 0) {
+        if ($highestRow - $start < 0) {
             \Api::error('Excel文件中无有效数据');
         }
         $data = [];
