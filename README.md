@@ -56,7 +56,7 @@ Api 统一返回  (已接管系统错误)
 
 弱化 common|继承 的概念  （多使用 extend）
 
-$this->getData() 更友好的获取请求数据并验证
+$this->getParam() 更友好的获取请求数据并验证
 
 ### 特殊说明
 
