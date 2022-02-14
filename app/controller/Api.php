@@ -16,9 +16,9 @@ class Api extends BaseController
 
     /**
      * 获取数据
-     * @return string
+     * @return void
      */
-    public function getData(): string
+    public function getData()
     {
         $cs = $this->getParam([
             ['name', 9],
@@ -37,8 +37,6 @@ class Api extends BaseController
             'email' => '邮箱格式错误',
         ]);
         \Api::success($cs);
-        print_r($cs);
-        return 'hello, world !';
     }
 
     /**
@@ -67,7 +65,7 @@ class Api extends BaseController
             ['name' => 'name_C', 'area_name' => '上海', 'account' => 'shanghai', 'date' => '2020-01-03']
         ];
 
-        \Excel::header('账号导出', ['name' => '名字', 'account' => '账号', 'area_name' => '城市', 'date' => '日期'], '共导出数据:' . count($list) . '条')
+        Utils\Excel::header('账号导出', ['name' => '名字', 'account' => '账号', 'area_name' => '城市', 'date' => '日期'], '共导出数据:' . count($list) . '条')
             ->content($list)
             ->save();
     }

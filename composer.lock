@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e94678989f436395d6e7b1aa94fc17c",
+    "content-hash": "0a02712e5f354488e423a7d7a53ce7bb",
     "packages": [
         {
             "name": "league/flysystem",
@@ -694,16 +694,16 @@
         },
         {
             "name": "xy_jx/utils",
-            "version": "0.3.0",
+            "version": "0.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/XY-JX/utils.git",
-                "reference": "bf45bd7255decfcd5b40f996df07eff990a7d06a"
+                "reference": "3bfe46ac264582a675b0c9805dde337f117586d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/XY-JX/utils/zipball/bf45bd7255decfcd5b40f996df07eff990a7d06a",
-                "reference": "bf45bd7255decfcd5b40f996df07eff990a7d06a",
+                "url": "https://api.github.com/repos/XY-JX/utils/zipball/3bfe46ac264582a675b0c9805dde337f117586d0",
+                "reference": "3bfe46ac264582a675b0c9805dde337f117586d0",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -713,16 +713,16 @@
                 ]
             },
             "require": {
-                "php": ">=7.1.0"
+                "php": ">=7.3.0"
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "xy_jx\\Utils\\": "src"
-                },
                 "files": [
                     "src/common.php"
-                ]
+                ],
+                "psr-4": {
+                    "xy_jx\\Utils\\": "src"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -737,9 +737,9 @@
             "description": "utils",
             "support": {
                 "issues": "https://github.com/XY-JX/utils/issues",
-                "source": "https://github.com/XY-JX/utils/tree/0.3.0"
+                "source": "https://github.com/XY-JX/utils/tree/0.3.9"
             },
-            "time": "2022-01-23T06:41:15+00:00"
+            "time": "2022-02-12T13:28:03+00:00"
         }
     ],
     "packages-dev": [
@@ -783,12 +783,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Mbstring\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
