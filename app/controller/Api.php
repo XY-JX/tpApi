@@ -15,6 +15,33 @@ class Api extends BaseController
     }
 
     /**
+     * 获取数据
+     * @return string
+     */
+    public function getData(): string
+    {
+        $cs = $this->getParam([
+            ['name', 9],
+            ['age', 1],
+            ['email', 'qq@qq.com'],
+            ['data', 'aaaaaaaaaaaaa']
+        ], [
+            'name' => 'require|max:25|',
+            'age' => 'number|between:1,120',
+            'email' => 'email',
+        ], [
+            'name.require' => '名称必须',
+            'name.max' => '名称最多不能超过25个字符',
+            'age.number' => '年龄必须是数字',
+            'age.between' => '年龄必须在1~120之间',
+            'email' => '邮箱格式错误',
+        ]);
+        \Api::success($cs);
+        print_r($cs);
+        return 'hello, world !';
+    }
+
+    /**
      * 实时写入日志信息
      * @return void
      */
@@ -45,37 +72,6 @@ class Api extends BaseController
             ->save();
     }
 
-    public function getData1()
-    {
-        $cs = $this->getData([
-            ['name', 9],
-            ['age', 1],
-            ['email', 'qq@qq.com'],
-            ['data', 'aaaaaaaaaaaaa']
-        ], [
-            'name' => 'require|max:25',
-            'age' => 'number|between:1,120',
-            'email' => 'email',
-        ], [
-            'name.require' => '名称必须',
-            'name.max' => '名称最多不能超过25个字符',
-            'age.number' => '年龄必须是数字',
-            'age.between' => '年龄必须在1~120之间',
-            'email' => '邮箱格式错误',
-        ]);
-        \Api::success($cs);
-        print_r($cs);
-        return 'hello, world !';
-    }
-
-    public function getData12()
-    {
-        $this->getData(['name' => '55555'], [
-            'name' => 'require|max:25'
-        ]);
-        return 'hello, world !';
-    }
-
     public function cs1()
     {
         $cache = \Utils::redis();
@@ -91,7 +87,7 @@ class Api extends BaseController
 
     public function getData123()
     {
-        $orderInfo = $this::getData([
+        $orderInfo = $this::getParam([
             ['goods', mt_rand(1, 3)],
             ['uid', mt_rand(1, 100)],
             ['num', mt_rand(1, 5)]

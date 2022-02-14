@@ -105,7 +105,7 @@ abstract class BaseController
      * @param array $message ['name.require' => '名称必须','name.max' => '名称最多不能超过25个字符','email' => '邮箱格式错误'];
      * @return array
      */
-    protected function getData(array $params, array $validate = [], array $message = [])
+    protected function getParam(array $params, array $validate = [], array $message = []): array
     {
         if (config('app.is_it_encrypted') && $this->request->param('data')) {
             $Openssl = new \xy_jx\Utils\Openssl();

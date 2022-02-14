@@ -3,13 +3,16 @@
 namespace app\controller\user;
 
 use app\BaseController;
-use think\facade\Db;
 
 class User extends BaseController
 {
     public function list()
     {
-        
+        \Api::success();
+    }
+
+    public function add()
+    {
         \Api::success();
     }
 
