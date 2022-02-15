@@ -3,31 +3,45 @@
 namespace app\controller\user;
 
 use app\BaseController;
+use app\Logic\UserLogic;
 
 class User extends BaseController
 {
-    public function list()
+    public function list(UserLogic $logic)
     {
-        \Api::success();
+        $param = $this->getParam(['nickname', 'sex' => 2], ['nickname|昵称' => 'max:20', 'sex|性别' => 'in:0,1,2']);
+        \Api::success($logic->list($param));
     }
 
-    public function add()
+    public function add(UserLogic $logic)
     {
-        \Api::success();
+        $param = $this->getParam(['nickname', 'sex' => 2], ['nickname|昵称' => 'max:20', 'sex|性别' => 'in:0,1,2']);
+        if ($logic->add($param))
+            \Api::success();
+        \Api::error();
     }
 
-    public function del()
+    public function del(UserLogic $logic)
     {
-        \Api::success();
+        $param = $this->getParam(['id'], ['id' => 'require|number']);
+        if ($logic->del($param['id']))
+            \Api::success();
+        \Api::error();
     }
 
-    public function info()
+    public function info(UserLogic $logic)
     {
-        \Api::success();
+        $param = $this->getParam(['id'], ['id' => 'require|number']);
+        if ($info = $logic->info($param['id']))
+            \Api::success($info);
+        \Api::error();
     }
 
-    public function edit()
+    public function edit(UserLogic $logic)
     {
-        \Api::success();
+        $param = $this->getParam(['id', 'nickname', 'sex'], ['id' => 'require|number', 'nickname|昵称' => 'max:10|chsDash', 'sex|性别' => 'in:0,1,2']);
+        if ($logic->edit($param))
+            \Api::success();
+        \Api::error();
     }
 }
