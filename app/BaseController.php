@@ -62,7 +62,7 @@ abstract class BaseController
      * @param string|array $validate 验证器名或者验证规则数组
      * @param array $message 提示信息
      * @param bool $batch 是否批量验证
-     * @return array|string|true
+     * @return void
      * @throws ValidateException
      */
     protected function validate(array $data, $validate, array $message = [], bool $batch = false)
@@ -114,17 +114,21 @@ abstract class BaseController
         $p = [];
         foreach ($params as $key => $param) {
             if (is_array($param)) {
-                if (!isset($param[1])) $param[1] = null;
-                if (!isset($param[2])) $param[2] = '';
-                $name = $param[0];
                 if (strpos($param[0], '/')) {
                     [$name, $type] = explode('/', $param[0]);
+                } else {
+                    $name = $param[0];
                 }
-                $p[$name] = $this->request->param($param[0], $param[1], $param[2]);
+                $p[$name] = $this->request->param($param[0], $param[1] ?? null, $param[2] ?? '');
             } else if (is_int($key)) {
                 $p[$param] = $this->request->param($param);
             } else {
-                $p[$key] = $this->request->param($key, $param);
+                if (strpos($key, '/')) {
+                    [$name, $type] = explode('/', $key);
+                } else {
+                    $name = $key;
+                }
+                $p[$name] = $this->request->param($key, $param);
             }
         }
         if ($validate) {
