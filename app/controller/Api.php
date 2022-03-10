@@ -35,12 +35,13 @@ class Api extends BaseController
     public function getData()
     {
         $cs = $this->getParam([
-            ['name', 9],
-            ['age', 1],
+            ['name', '999.9',''],
+            ['age', 10],
             ['email', 'qq@qq.com'],
-            ['data', 'aaaaaaaaaaaaa']
+            ['data', 'aaaaaaaaaaaaa'],
+            'sex/d'=>'1'
         ], [
-            'name' => 'require|max:25|',
+            'name' => 'require|max:25',
             'age' => 'number|between:1,120',
             'email' => 'email',
         ], [

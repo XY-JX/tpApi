@@ -144,7 +144,7 @@ abstract class BaseController
      */
     public function __call($method, $args)
     {
-        \Api::error('资源不存在', 404);
+        \Api::error('资源不存在', 403);
     }
 
 }
