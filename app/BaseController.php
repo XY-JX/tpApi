@@ -95,7 +95,7 @@ abstract class BaseController
 
         if ($v->getError())
 
-            \Api::error($v->getError(), 402);
+            \Api::fail($v->getError(), 402);
     }
 
     /**
@@ -144,7 +144,7 @@ abstract class BaseController
      */
     public function __call($method, $args)
     {
-        \Api::error('资源不存在', 403);
+        \Api::fail('资源不存在', 403);
     }
 
 }

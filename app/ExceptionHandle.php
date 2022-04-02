@@ -74,9 +74,9 @@ class ExceptionHandle extends Handle
             if (env('app_debug')) { //调试模式
                 $error['request_id'] = $request_id;
                 $error['trace'] = $e->getTrace();
-                \Api::error('Internal Server Error', 500, $error);
+                \Api::fail('Internal Server Error', 500, $error);
             } else {  //非调试模式
-                \Api::error('网络错误', 500, ['request_id' => $request_id]);
+                \Api::fail('网络错误', 500, ['request_id' => $request_id]);
             }
         }
         // 其他错误交给系统处理

@@ -36,11 +36,11 @@ Route::group('v1', function () {// api 版本
     Route::group(function () {  //不需要登录
         Route::post('login', 'login/login');//登录必须使用post 方式请求
         Route::post('cs', function () {
-            \Api::error('路由');
+            \Api::fail('路由');
         });
     });
     Route::miss(function () { //路由不存在
-        \Api::error('api', 405);
+        \Api::fail('api', 405);
     });
 });
 

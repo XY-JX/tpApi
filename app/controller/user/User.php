@@ -18,7 +18,7 @@ class User extends BaseController
         $param = $this->getParam(['nickname', 'sex' => 2], ['nickname|昵称' => 'max:20', 'sex|性别' => 'in:0,1,2']);
         if ($logic->add($param))
             \Api::success();
-        \Api::error();
+        \Api::fail();
     }
 
     public function del(UserLogic $logic)
@@ -26,7 +26,7 @@ class User extends BaseController
         $param = $this->getParam(['id'], ['id' => 'require|number']);
         if ($logic->del($param['id']))
             \Api::success();
-        \Api::error();
+        \Api::fail();
     }
 
     public function info(UserLogic $logic)
@@ -34,7 +34,7 @@ class User extends BaseController
         $param = $this->getParam(['id'], ['id' => 'require|number']);
         if ($info = $logic->info($param['id']))
             \Api::success($info);
-        \Api::error();
+        \Api::fail();
     }
 
     public function edit(UserLogic $logic)
@@ -42,6 +42,6 @@ class User extends BaseController
         $param = $this->getParam(['id', 'nickname', 'sex'], ['id' => 'require|number', 'nickname|昵称' => 'max:10|chsDash', 'sex|性别' => 'in:0,1,2']);
         if ($logic->edit($param))
             \Api::success();
-        \Api::error();
+        \Api::fail();
     }
 }
