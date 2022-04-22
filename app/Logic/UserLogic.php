@@ -70,6 +70,7 @@ class UserLogic
      */
     private function where(array $param): array
     {
+        $where = [['df', '=', BaseModel::DF]];
         return $param;
     }
 }

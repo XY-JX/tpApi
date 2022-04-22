@@ -64,4 +64,4 @@ $this->getParam() 更友好的获取请求数据并验证
 
 如需要在非调试模式 监听SQL 需要修改配置文件 config.database =》 trigger_sql 值为 true
 
-
+代码中不要有 die exit 中断,否则会导致日志写入失败 
