@@ -9,7 +9,7 @@ use think\facade\Route;
 
 Route::group('v1', function () {// api 版本
     Route::group(function () {  //需要登录
-        Route::post('api', function () {
+        Route::get('api', function () {
             \Api::success();
         });
         Route::group('user', function () {
@@ -35,14 +35,14 @@ Route::group('v1', function () {// api 版本
 
     Route::group(function () {  //不需要登录
         Route::post('login', 'login/login');//登录必须使用post 方式请求
-        Route::post('cs', function () {
+        Route::get('cs', function () {
             \Api::fail('路由');
-        });
+        })->middleware(\app\middleware\Throttle::class, 1, 'm');
     });
     Route::miss(function () { //路由不存在
         \Api::fail('api', 405);
     });
-});
+})->middleware(\app\middleware\Throttle::class,1,'s','_');
 
 //Route::miss(function (){ //强制路由不存在
 //    \Api::error('api',405 );
