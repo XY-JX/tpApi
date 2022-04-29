@@ -42,7 +42,7 @@ Route::group('v1', function () {// api 版本
     Route::miss(function () { //路由不存在
         \Api::fail('api', 405);
     });
-})->middleware(\app\middleware\Throttle::class,1,'s','_');
+})->middleware(\app\middleware\Throttle::class,2,'s','_');
 
 //Route::miss(function (){ //强制路由不存在
 //    \Api::error('api',405 );
