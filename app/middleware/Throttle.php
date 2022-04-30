@@ -20,8 +20,9 @@ class Throttle
      */
     public function handle($request, \Closure $next, int $limit = 3, string $time = 's', string $prefix = '')
     {
+        $key = $prefix ?? md5($request->ip() . $prefix . $request->baseUrl());
         // 访问频率限制
-        if (!Sundry::restrict([], md5($request->ip() . $prefix . $request->baseUrl()), $limit, $time))
+        if (!Sundry::restrict([], $key, $limit, $time))
             \Api::fail('操作太频繁了', 429);
 
         //业务代码
