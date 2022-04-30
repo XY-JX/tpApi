@@ -1,9 +1,6 @@
 <?php
 
 namespace app\middleware;
-
-use think\Container;
-use think\Request;
 use  \xy_jx\Utils\Sundry;
 
 class Throttle
