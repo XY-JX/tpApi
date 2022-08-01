@@ -13,6 +13,6 @@ class Error
      */
     public function __call($method, $args)
     {
-        \Api::fail('资源不存在', 403);
+        \Api::fail('资源不存在', 410);
     }
 }
