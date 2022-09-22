@@ -11,7 +11,7 @@ class Api extends BaseController
 
     public function index()
     {
-        \Api::success(orderNo());
+        \Api::success(\xy_jx\Utils\Encryption::resetKey());
     }
 
     /**

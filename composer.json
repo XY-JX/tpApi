@@ -23,7 +23,10 @@
         "php": ">=7.3.0",
         "topthink/framework": "^6.0.0",
         "topthink/think-orm": "^2.0",
-        "xy_jx/utils": "^0.3"
+        "xy_jx/utils": "^0.3.16"
+
+
+
 
     },
     "require-dev": {
